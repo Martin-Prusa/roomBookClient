@@ -76,12 +76,30 @@ window.onload = () => {
                 room.reservations.forEach(reservation => {
                     const tr = document.createElement('tr')
                     tr.innerHTML = `
-                <td>${reservation.email}</td>
-                <td>${reservation.firstName}</td>
-                <td>${reservation.lastName}</td>
-                <td>${new Date(reservation.from).toLocaleDateString()} ${new Date(reservation.from).toLocaleTimeString()}</td>
-                <td>${new Date(reservation.to).toLocaleDateString()} ${new Date(reservation.to).toLocaleTimeString()}</td>
+                        <td>${reservation.email}</td>
+                        <td>${reservation.firstName}</td>
+                        <td>${reservation.lastName}</td>
+                        <td>${new Date(reservation.from).toLocaleDateString()} ${new Date(reservation.from).toLocaleTimeString()}</td>
+                        <td>${new Date(reservation.to).toLocaleDateString()} ${new Date(reservation.to).toLocaleTimeString()}</td>
                 `
+                    const del = document.createElement('td')
+                    del.className = 'pointer'
+                    del.innerHTML = '<i class="fa-solid fa-trash-can"></i>'
+                    del.addEventListener('click', () => {
+                        service.deleteReservation(id, reservation.id).then(res => {
+                            if(res.status === 204) {
+                                redraw()
+                            }
+                        })
+                    })
+
+                    const updt = document.createElement('td')
+                    updt.className = 'pointer'
+                    updt.innerHTML = '<i class="fa-solid fa-pen-clip"></i>'
+
+                    tr.appendChild(del)
+                    tr.appendChild(updt)
+
                     reservationsBox.appendChild(tr)
                 })
 
