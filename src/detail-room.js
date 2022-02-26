@@ -1,6 +1,8 @@
 import {RoomsService} from "./RoomsService";
 
 window.onload = () => {
+    let reservationId
+
     const urlParams = new URLSearchParams(window.location.search)
     const id = urlParams.get('id')
     const service = new RoomsService()
@@ -36,9 +38,12 @@ window.onload = () => {
     const openModalBtn = document.querySelector('#open-modal')
 
     const reservationBtn = document.querySelector('#reservation-button')
+    const updateReservationBtn = document.querySelector('#reservation-update-button')
 
     openModalBtn.addEventListener('click', () => {
         modal.show()
+        updateReservationBtn.style.display = 'none'
+        reservationBtn.style.display ='block'
         reservationError.innerHTML = ''
         emailInput.value = ''
         firstInput.value = ''
@@ -48,20 +53,42 @@ window.onload = () => {
     })
 
     reservationBtn.addEventListener('click', () => {
-        service.createReservation(id, {
+        try {
+            service.createReservation(id, {
+                email: emailInput.value,
+                firstName: firstInput.value,
+                lastName: lastInput.value,
+                from: new Date(fromInput.value).toISOString(),
+                to: new Date(toInput.value).toISOString(),
+            }).then(res => {
+                if(res.status === 200) {
+                    modal.hide()
+                    redraw()
+                } else {
+                    reservationError.innerHTML = 'Nelze zarezervovat. Zkontrolujte zadané údaje.'
+                }
+            }).catch(e => reservationError.innerHTML = 'Nelze zarezervovat. Chyba serveru.')
+        } catch (e) {
+            reservationError.innerHTML = 'Nelze zarezervovat. Zkontrolujte zadané údaje.'
+        }
+
+    })
+
+    updateReservationBtn.addEventListener('click', () => {
+        service.updateReservation(id, reservationId, {
             email: emailInput.value,
             firstName: firstInput.value,
             lastName: lastInput.value,
-            from: fromInput.value,
-            to: toInput.value,
+            from: new Date(fromInput.value).toISOString(),
+            to: new Date(toInput.value).toISOString(),
         }).then(res => {
             if(res.status === 200) {
                 modal.hide()
                 redraw()
             } else {
-                reservationError.innerHTML = 'Nelze zarezervovat. Zkontrolujte zadané údaje.'
+                reservationError.innerHTML = 'Nelze upravit. Zkontrolujte zadané údaje.'
             }
-        }).catch(e => reservationError.innerHTML = 'Nelze zarezervovat. Chyba serveru.')
+        }).catch(e => reservationError.innerHTML = 'Nelze upravit. Chyba serveru.')
     })
 
     const redraw = () => {
@@ -96,6 +123,22 @@ window.onload = () => {
                     const updt = document.createElement('td')
                     updt.className = 'pointer'
                     updt.innerHTML = '<i class="fa-solid fa-pen-clip"></i>'
+                    updt.addEventListener('click', () => {
+                        modal.show()
+                        reservationId = reservation.id
+                        updateReservationBtn.style.display = 'block'
+                        reservationBtn.style.display ='none'
+                        reservationError.innerHTML = ''
+                        emailInput.value = reservation.email
+                        firstInput.value = reservation.firstName
+                        lastInput.value = reservation.lastName
+                        let from = new Date(reservation.from)
+                        from.setMinutes(from.getMinutes() - from.getTimezoneOffset())
+                        fromInput.value = from.toISOString().slice(0,16)
+                        let to = new Date(reservation.to)
+                        to.setMinutes(to.getMinutes() - to.getTimezoneOffset())
+                        toInput.value = to.toISOString().slice(0, 16)
+                    })
 
                     tr.appendChild(del)
                     tr.appendChild(updt)
