@@ -1,0 +1,32 @@
+{
+  "name": "roombook",
+  "version": "0.0.1",
+  "description": "Room booking client",
+  "private": "true",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Martin-Prusa/roomBookClient.git"
+  },
+  "keywords": [
+    "room",
+    "book",
+    "client"
+  ],
+  "author": "MAR25",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Martin-Prusa/roomBookClient/issues"
+  },
+  "homepage": "https://github.com/Martin-Prusa/roomBookClient#readme",
+  "dependencies": {
+    "bootstrap": "^5.1.3"
+  },
+  "devDependencies": {
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2"
+  }
+}
