@@ -4,6 +4,7 @@ module.exports = {
     entry: {
         'index': './src/index.js',
         'detail-room': './src/detail-room.js',
+        'create-room': './src/create-room.js',
     },
     output: {
         filename: '[name].js',

@@ -8,4 +8,14 @@ export class RoomsService {
     getRoom(id) {
         return fetch(this.#url+"/Rooms/"+id)
     }
+
+    createRoom(room) {
+        return fetch(this.#url+"/Rooms", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(room)
+        })
+    }
 }
