@@ -24,28 +24,73 @@ window.onload = () => {
         })
     })
 
-    service.getRoom(id).then(res => {
-        if(res.status === 200) res.json().then(room => {
-            titleBox.innerHTML = room.title
-            descriptionBox.innerHTML = room.description
-            priceBox.innerHTML = room.price
-            seatsBox.innerHTML = room.seats
+    const emailInput = document.querySelector('#reservation-email')
+    const firstInput = document.querySelector('#reservation-first')
+    const lastInput = document.querySelector('#reservation-last')
+    const fromInput = document.querySelector('#reservation-from')
+    const toInput = document.querySelector('#reservation-to')
 
-            room.reservations.forEach(reservation => {
-                const tr = document.createElement('tr')
-                tr.innerHTML = `
+    const reservationError = document.querySelector('#reservation-error')
+
+    const modal = new bootstrap.Modal(document.querySelector('#reservation-modal'))
+    const openModalBtn = document.querySelector('#open-modal')
+
+    const reservationBtn = document.querySelector('#reservation-button')
+
+    openModalBtn.addEventListener('click', () => {
+        modal.show()
+        reservationError.innerHTML = ''
+        emailInput.value = ''
+        firstInput.value = ''
+        lastInput.value = ''
+        fromInput.value = ''
+        toInput.value = ''
+    })
+
+    reservationBtn.addEventListener('click', () => {
+        service.createReservation(id, {
+            email: emailInput.value,
+            firstName: firstInput.value,
+            lastName: lastInput.value,
+            from: fromInput.value,
+            to: toInput.value,
+        }).then(res => {
+            if(res.status === 200) {
+                modal.hide()
+                redraw()
+            } else {
+                reservationError.innerHTML = 'Nelze zarezervovat. Zkontrolujte zadané údaje.'
+            }
+        }).catch(e => reservationError.innerHTML = 'Nelze zarezervovat. Chyba serveru.')
+    })
+
+    const redraw = () => {
+        reservationsBox.innerHTML = ''
+        service.getRoom(id).then(res => {
+            if(res.status === 200) res.json().then(room => {
+                titleBox.innerHTML = room.title
+                descriptionBox.innerHTML = room.description
+                priceBox.innerHTML = room.price
+                seatsBox.innerHTML = room.seats
+
+                room.reservations.forEach(reservation => {
+                    const tr = document.createElement('tr')
+                    tr.innerHTML = `
                 <td>${reservation.email}</td>
                 <td>${reservation.firstName}</td>
                 <td>${reservation.lastName}</td>
                 <td>${new Date(reservation.from).toLocaleDateString()} ${new Date(reservation.from).toLocaleTimeString()}</td>
                 <td>${new Date(reservation.to).toLocaleDateString()} ${new Date(reservation.to).toLocaleTimeString()}</td>
                 `
-                reservationsBox.appendChild(tr)
-            })
+                    reservationsBox.appendChild(tr)
+                })
 
-        }).catch(e => document.location.href = '../index.html')
-        else {
-            document.location.href = '../index.html'
-        }
-    })
+            }).catch(e => document.location.href = '../index.html')
+            else {
+                document.location.href = '../index.html'
+            }
+        })
+    }
+
+    redraw()
 }

@@ -36,7 +36,7 @@
         <h3>Počet míst</h3>
         <p id="seats-box" class="">25</p>
     </div>
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservation-modal">Rezervovat</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" id="open-modal">Rezervovat</button>
     <div class="mt-4">
         <h3>Rezervace</h3>
         <table class="table">
@@ -87,6 +87,7 @@
                     <input type="datetime-local" class="form-control" id="reservation-to" placeholder="">
                 </div>
             </div>
+            <p class="text-danger text-center" id="reservation-error"></p>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zpět</button>
                 <button type="button" class="btn btn-primary" id="reservation-button">Rezervovat</button>

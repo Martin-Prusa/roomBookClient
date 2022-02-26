@@ -34,4 +34,30 @@ export class RoomsService {
             method: 'DELETE'
         })
     }
+
+    createReservation(id, reservation) {
+        return fetch(this.#url+`/Rooms/${id}/Reservations`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(reservation)
+        })
+    }
+
+    updateReservation(id, reservationId, reservation) {
+        return fetch(this.#url+`/Rooms/${id}/Reservations/${reservationId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(reservation)
+        })
+    }
+
+    deleteReservation(id, reservationId) {
+        return fetch(this.#url+`/Rooms/${id}/Reservations/${reservationId}`, {
+            method: 'DELETE'
+        })
+    }
 }
