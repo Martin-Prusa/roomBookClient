@@ -18,4 +18,14 @@ export class RoomsService {
             body: JSON.stringify(room)
         })
     }
+
+    updateRoom(id, room) {
+        return fetch(this.#url+`/Rooms/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(room)
+        })
+    }
 }

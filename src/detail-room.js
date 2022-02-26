@@ -12,6 +12,11 @@ window.onload = () => {
 
     const reservationsBox = document.querySelector('#reservations-box')
 
+    const editBtn = document.querySelector('#edit-button')
+    editBtn.addEventListener('click', () => {
+        document.location.href = `./edit-room.html?id=${id}`
+    })
+
     service.getRoom(id).then(res => {
         if(res.status === 200) res.json().then(room => {
             titleBox.innerHTML = room.title
