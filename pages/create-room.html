@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RoomBooking.cz</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-primary bg-primary text-light">
+    <div class="container-fluid">
+        <a href="../index.html" class="navbar-brand mb-0 h1 text-light">RoomBooking.cz</a>
+    </div>
+</nav>
+
+<div class="container mt-4 create-container">
+    <h2 class="text-center">Přidat místnost</h2>
+    <div class="mb-3">
+        <label for="room-title" class="form-label">Název místnosti:</label>
+        <input type="text" class="form-control" id="room-title" placeholder="C2 EDUCAnat Praha">
+    </div>
+    <div class="mb-3">
+        <label for="room-price" class="form-label">Cena za hodinu (Kč):</label>
+        <input type="number" class="form-control" id="room-price" placeholder="200">
+    </div>
+    <div class="mb-3">
+        <label for="room-seats" class="form-label">Počet míst:</label>
+        <input type="number" class="form-control" id="room-seats" placeholder="25">
+    </div>
+    <div class="mb-3">
+        <label for="room-description" class="form-label">Popis místnosti</label>
+        <textarea class="form-control" id="room-description" rows="3"></textarea>
+    </div>
+    <p class="text-danger text-center" id="error-message"></p>
+    <div class="mb-3 d-flex justify-content-center">
+        <button id="create-button" class="btn btn-primary w-100">Vytvořit</button>
+    </div>
+</div>
+
+</body>
+</html>
