@@ -17,6 +17,13 @@ window.onload = () => {
         document.location.href = `./edit-room.html?id=${id}`
     })
 
+    const deleteBtn = document.querySelector('#delete-button')
+    deleteBtn.addEventListener('click', () => {
+        service.deleteRoom(id).then(res => {
+            if(res.status === 204) document.location.href = '../index.html'
+        })
+    })
+
     service.getRoom(id).then(res => {
         if(res.status === 200) res.json().then(room => {
             titleBox.innerHTML = room.title

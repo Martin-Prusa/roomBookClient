@@ -28,4 +28,10 @@ export class RoomsService {
             body: JSON.stringify(room)
         })
     }
+
+    deleteRoom(id) {
+        return fetch(this.#url+'/Rooms/'+id, {
+            method: 'DELETE'
+        })
+    }
 }
