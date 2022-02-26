@@ -4,4 +4,8 @@ export class RoomsService {
     getRooms() {
         return fetch(this.#url+"/Rooms")
     }
+
+    getRoom(id) {
+        return fetch(this.#url+"/Rooms/"+id)
+    }
 }

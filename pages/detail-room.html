@@ -8,6 +8,7 @@
     <title>RoomBooking.cz</title>
     <link rel="stylesheet" href="../styles/styles.css">
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="../dist/detail-room.js"></script>
 </head>
 <body>
 
@@ -34,7 +35,20 @@
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservation-modal">Rezervovat</button>
     <div class="mt-4">
         <h3>Rezervace</h3>
-        <div id="reservations-box"></div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Email</th>
+                <th scope="col">Jméno</th>
+                <th scope="col">Příjmení</th>
+                <th scope="col">Od</th>
+                <th scope="col">Do</th>
+            </tr>
+            </thead>
+            <tbody id="reservations-box">
+
+            </tbody>
+        </table>
     </div>
 </div>
 
