@@ -58,8 +58,8 @@ window.onload = () => {
                 email: emailInput.value,
                 firstName: firstInput.value,
                 lastName: lastInput.value,
-                from: new Date(fromInput.value).toISOString(),
-                to: new Date(toInput.value).toISOString(),
+                from: new Date(fromInput.value).toISOString().slice(0, -1),
+                to: new Date(toInput.value).toISOString().slice(0, -1),
             }).then(res => {
                 if(res.status === 200) {
                     modal.hide()
@@ -79,8 +79,8 @@ window.onload = () => {
             email: emailInput.value,
             firstName: firstInput.value,
             lastName: lastInput.value,
-            from: new Date(fromInput.value).toISOString(),
-            to: new Date(toInput.value).toISOString(),
+            from: new Date(fromInput.value).toISOString().slice(0, -1),
+            to: new Date(toInput.value).toISOString().slice(0, -1),
         }).then(res => {
             if(res.status === 200) {
                 modal.hide()
