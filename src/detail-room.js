@@ -102,12 +102,16 @@ window.onload = () => {
 
                 room.reservations.forEach(reservation => {
                     const tr = document.createElement('tr')
+                    const from = new Date(reservation.from)
+                    from.setMinutes(from.getMinutes() - from.getTimezoneOffset())
+                    const to = new Date(reservation.to)
+                    to.setMinutes(to.getMinutes() - to.getTimezoneOffset())
                     tr.innerHTML = `
                         <td>${reservation.email}</td>
                         <td>${reservation.firstName}</td>
                         <td>${reservation.lastName}</td>
-                        <td>${new Date(reservation.from).toLocaleDateString()} ${new Date(reservation.from).toLocaleTimeString()}</td>
-                        <td>${new Date(reservation.to).toLocaleDateString()} ${new Date(reservation.to).toLocaleTimeString()}</td>
+                        <td>${from.toLocaleDateString()} ${from.toLocaleTimeString()}</td>
+                        <td>${to.toLocaleDateString()} ${to.toLocaleTimeString()}</td>
                 `
                     const del = document.createElement('td')
                     del.className = 'pointer'
@@ -133,10 +137,10 @@ window.onload = () => {
                         firstInput.value = reservation.firstName
                         lastInput.value = reservation.lastName
                         let from = new Date(reservation.from)
-                        from.setMinutes(from.getMinutes() - from.getTimezoneOffset())
+                        from.setMinutes(from.getMinutes() - from.getTimezoneOffset()*2)
                         fromInput.value = from.toISOString().slice(0,16)
                         let to = new Date(reservation.to)
-                        to.setMinutes(to.getMinutes() - to.getTimezoneOffset())
+                        to.setMinutes(to.getMinutes() - to.getTimezoneOffset()*2)
                         toInput.value = to.toISOString().slice(0, 16)
                     })
 
